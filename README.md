@@ -19,3 +19,5 @@ Além disso, foi produzido um
 protótipo de aplicação que permite
 dois computadores em uma rede local
 se comunicarem.
+
+- Link para explicação mais detalhada: https://docs.google.com/document/d/1g4ZXS9892infbBVJyYAdWvNuw0jwYDcZO5zkPBvDoS8/edit
