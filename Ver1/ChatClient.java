@@ -3,42 +3,52 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.net.SocketAddress;
 import java.util.Scanner;
 
-public class ChatClient {
+public class ChatClient implements Runnable {
     private static final String SERVER_ADRESS = "127.0.0.1";
-    private Socket clientSocket;
-    private Scanner scanner;
-    private BufferedWriter out;
+    private ClientSocket clientSocket;
+    private Scanner scanner; 
 
-    public ChatClient(){
+    public ChatClient() {
         scanner = new Scanner(System.in);
     }
-    
-    public void start() throws UnknownHostException, IOException{
-        clientSocket = new Socket(SERVER_ADRESS, ChatServer.PORT);
-        this.out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-        
-        System.out.println("Client conected to the server in " + 
-            SERVER_ADRESS + ";" + ChatServer.PORT);
-        messageLoop();
 
+    @Override
+    public void run() {
+        String msg;
+        while ((msg = clientSocket.getMessage()) != null) {
+            System.out.printf("\n Menssagem recebida do servidor: %s\n", msg);
+        }
     }
 
-    private void messageLoop() throws IOException{
+    public void start() throws UnknownHostException, IOException {
+        try{
+        clientSocket = new ClientSocket(new Socket(SERVER_ADRESS, ChatServer.PORT));
+
+        System.out.println("Client conected to the server in " +
+                SERVER_ADRESS + ";" + ChatServer.PORT);
+
+        new Thread(this).start();
+        messageLoop();
+        } finally{
+            clientSocket.close(); 
+         }
+
+    } 
+    private void messageLoop() throws IOException {
         String msg;
-        do{
+        do {
             System.out.print("Type a massage, type (sair) to finish: ");
             msg = scanner.nextLine();
-            System.out.println(msg);
-            out.write(msg);
-            out.newLine();
-            out.flush();
-            
-        }while(!msg.equalsIgnoreCase("sair"));
+            clientSocket.sendMsg(msg);
+
+        } while (!msg.equalsIgnoreCase("sair"));
     }
+
     public static void main(String[] args) {
-        
+
         try {
             ChatClient client = new ChatClient();
             client.start();
@@ -47,4 +57,5 @@ public class ChatClient {
         }
         System.out.println("Client has ended");
     }
+
 }
