@@ -21,3 +21,6 @@ dois computadores em uma rede local
 se comunicarem.
 
 - Link para explicação mais detalhada: https://docs.google.com/document/d/1g4ZXS9892infbBVJyYAdWvNuw0jwYDcZO5zkPBvDoS8/edit
+
+SLIDE DE APRESENTAÇÃO
+https://www.canva.com/design/DAFfOCUc9C8/PB8sa-QjrM_A1Evcmu7iSw/edit?utm_content=DAFfOCUc9C8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
