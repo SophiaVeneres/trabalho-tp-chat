@@ -35,7 +35,7 @@ public class ChatClient extends JFrame implements ActionListener {
 
         // Connect to server
         try {
-            socket = new Socket("127.0.0.1", 5000);
+            socket = new Socket("10.0.0.33", 5000); //ip da máquina que vamos utilizar e a porta
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new PrintWriter(socket.getOutputStream(), true);
         } catch (IOException e) {
